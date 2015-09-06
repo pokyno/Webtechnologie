@@ -7,9 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import nl.pietervanberkel.model.Model;
 
 /**
  * Servlet implementation class Login
@@ -29,41 +26,41 @@ public class Login extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */	 
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		//hier kunnen we wat doen met data ophalen als het moet
+		
+	}
+
+    
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		HttpSession s = request.getSession();
-		if (!s.isNew()) {
-		   s.invalidate();
-		   s = request.getSession(); 
-		}
-		Model model = new Model(); // the data is consistend over all instances to simulate a data base
-		s.setAttribute("model", model);
-		response.sendRedirect("login.html");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Model model = (Model)request.getSession().getAttribute("model");
-		
 		String name = request.getParameter("Login_Name");
 		String password = request.getParameter("PassWord");
 		
 		System.out.println(name);
 		System.out.println(password);
 		
-		if(model.checkUserNameWithPassword(name, password)){
-			//maak achterliggende systeem oftuwel maak een webpagina voor dit
-			System.out.println("logged in");
+		if(name.equals(TESTNAME) && password.equals(TESTPASSWORD)){
+			//maak achterliggende systeem
+			doGet(request, response);
 		}else{
-			request.getServletContext().getRequestDispatcher("/WEB-INF/fouteInlog.html").forward(request,response);
-			//response.sendRedirect("fouteInlog.html");
+			response.sendRedirect("fouteInlog.html");
 			
 		}
 		
