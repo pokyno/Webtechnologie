@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
 			//maak achterliggende systeem
 			doGet(request, response);
 		}else{
-			response.sendRedirect("fouteInlog.html");
+			request.getServletContext().getRequestDispatcher("/WEB-INF/fouteInlog.html").forward(request,response);
 			
 		}
 		
