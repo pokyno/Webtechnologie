@@ -26,4 +26,8 @@ public class User {
 		return rol;
 	}
 	
+	public String toString(){
+		return naam + " " + password + " " + rol;
+	}
+	
 }

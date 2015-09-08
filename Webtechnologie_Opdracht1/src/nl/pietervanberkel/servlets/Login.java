@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import nl.pietervanberkel.model.Model;
 import nl.pietervanberkel.model.User;
@@ -32,24 +33,20 @@ public class Login extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */	 
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-		//hier kunnen we wat doen met data ophalen als het moet
-		
-		
-	}
-
-    
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession s = request.getSession(false);
+		if(s != null){
+			System.out.println("authorized");
+			request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
+		}else{
+			System.out.println("not authorized");
+			response.sendRedirect("/Webtechnologie_Opdracht1/login.html");
+		}
 	}
 
 	/**
@@ -65,20 +62,25 @@ public class Login extends HttpServlet {
 		
 		Model model = (Model) request.getServletContext().getAttribute("Model");
 		
-//		for(User user : model.getUsers()){
-//			if(name.equals(user.getNaam()) && password.equals(user.getPassword())){
-//				if (user.getRol() == User.HUURDER){
-					request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
-//				} else if (user.getRol() == User.VERHUURDER){
-//					//stuur door naar verhuurder pagina
-//				} else {
-//					System.out.println("an user has a wrong role int : " + user.getRol());
-//				}
-//			}else{
-//				request.getServletContext().getRequestDispatcher("/WEB-INF/fouteInlog.html").forward(request,response);
-//				
-//			}
-//		}
+		User user = model.getUser(name);
+		if(user != null){
+			if(user.getPassword().equals(password)){
+				HttpSession session = request.getSession();
+				if(!session.isNew()){
+					session.invalidate();
+					session = request.getSession();
+				}
+				request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
+			}
+		}else{
+			request.getServletContext().getRequestDispatcher("/WEB-INF/fouteInlog.html").forward(request,response);
+		}
+		
+		System.out.println(model == null);
+		
+		System.out.println(model.getUsers());
+		
+		
 		
 		
 	}

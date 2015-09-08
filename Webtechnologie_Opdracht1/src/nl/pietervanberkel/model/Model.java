@@ -10,26 +10,23 @@ import com.sun.xml.internal.ws.developer.UsesJAXBContext;
 
 public class Model{
 
-	private static HashMap<String, User> users = new HashMap<String, User>(); // gebruikers te selecteren met
+	private HashMap<String, User> users = new HashMap<String, User>(); // gebruikers te selecteren met
 												// hun gebruikers naam
-	private static ArrayList<Room> rooms = new ArrayList<Room>(); // kan ook een treeset zijn als we er
+	private ArrayList<Room> rooms = new ArrayList<Room>(); // kan ook een treeset zijn als we er
 											// een compare voor maken
 
 	public Model() {
 		// TODO Auto-generated method stub
 		// hier kan alles bij het opstarten hard coded data in voegen kan later
 		// ook veranderd worden met database ini
-//		users = new HashMap<String, User>();
-//		rooms = new ArrayList<Room>();
-
 		fill_with_dummie_data();
 	}
 	
-	public static ArrayList<User> getUsers() {
+	public ArrayList<User> getUsers() {
 		return new ArrayList<User>(users.values());
 	}
 
-	public static void fill_with_dummie_data() {
+	public void fill_with_dummie_data() {
 
 		users.put("pieter", new User("pieter", "test", User.HUURDER));
 		users.put("karin", new User("karin", "test", User.VERHUURDER));
@@ -50,7 +47,7 @@ public class Model{
 
 	}
 
-	public static void addUser(String username, String naam, String password, int rol) {
+	public void addUser(String username, String naam, String password, int rol) {
 		assert username != null : "null type username";
 		assert naam != null : "null type naam";
 		assert password != null : "null type password";
@@ -70,7 +67,7 @@ public class Model{
 	 * @param surface Integer size of the room in square meters.
 	 * @param city String name of the city the room is located in.
 	 */
-	public static void addRoom(int roomNumber, int monthlyPrice, int distanceFromCurrentLocation,int surface, String city){
+	public void addRoom(int roomNumber, int monthlyPrice, int distanceFromCurrentLocation,int surface, String city){
 		assert roomNumber >= 0 : "roomNumber " + roomNumber + " is not a valid room number.";
 		assert monthlyPrice > 0 : "monthly price " + monthlyPrice + " should be more than 0 euro's";
 		assert distanceFromCurrentLocation >= 0 : "distanceFromCurrentLocation " + distanceFromCurrentLocation + " is not a valid distance.";
@@ -87,7 +84,7 @@ public class Model{
 	 * @param surface Integer of the minimum surface the room must have.
 	 * @return ArrayList of Room instances that meet the qualifications.
 	 */
-	public static ArrayList<Room> getRooms(int monthlyPrice,int distanceFromCurrentLocation,int surface){
+	public ArrayList<Room> getRooms(int monthlyPrice,int distanceFromCurrentLocation,int surface){
 		
 		ArrayList<Room> foundRooms = new ArrayList<Room>();
 		
@@ -100,6 +97,10 @@ public class Model{
 		}
 		
 		return rooms;
+	}
+	
+	public User getUser(String name){
+		return users.get(name);
 	}
 
 }
