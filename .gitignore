@@ -1,5 +1,2 @@
 *.class
-Webtechnologie_Opdracht1/bin/*
-Webtechnologie_Opdracht1/build/*
-*.classpath
-
+Webtechnologie_Opdracht1/bin/.project
