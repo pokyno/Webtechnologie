@@ -31,4 +31,12 @@ public class Room {
 	public int getSurface() {
 		return surface;
 	}
+	
+	public String toString(){
+		return    "room nr: " + roomNumber + "\n"
+				+ "monthly prize: " + monthlyPrice + "\n"
+				+ "distance: " +distanceFromCurrentLocation+"\n"
+				+ "surface:"+ surface + "\n"
+				+ "city: " + city;
+	}
 }

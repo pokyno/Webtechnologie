@@ -1,11 +1,17 @@
 package nl.pietervanberkel.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import nl.pietervanberkel.model.Model;
+import nl.pietervanberkel.model.Room;
 
 /**
  * Servlet implementation class Huurder
@@ -26,8 +32,28 @@ public class Huurder extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		Model model = (Model) request.getServletContext().getAttribute("Model");
+		
+		int monthlyPrice =  Integer.parseInt(request.getParameter("monthlyPrice"));
+		int distanceFromCurrentLocation = Integer.parseInt(request.getParameter("distance"));
+		int surface = Integer.parseInt(request.getParameter("surfaceArea"));
+		
+		ArrayList<Room> rooms = model.getRooms(monthlyPrice, distanceFromCurrentLocation, surface);
+		PrintWriter  writer = response.getWriter();
+		
+		String roomlist = "";
+		
+		for(Room room : rooms){
+			roomlist += " <li>"+room+"</li> ";
+		}
+		
+		String html = "<!DOCTYPE html>"
+				+ "<html>"
+				+ " <head> <meta charset='ISO-8859-1'> <title>Webtech pieter thimo</title> </head>"
+				+ " <body> <ul>"+roomlist+"</ul> </body> "
+				+ "</html>";
+		
+		writer.println(html);
 	}
 
 	/**

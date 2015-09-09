@@ -39,6 +39,7 @@ public class Model{
 		// rooms dummie data
 		
 		addRoom(0, 70, 16, 120,"Enschede");
+		addRoom(5, 65, 5, 130,"borkulo");
 		addRoom(1, 120, 16, 8, "Hengelo");
 		addRoom(2, 30, 16, 67, "Borculo");
 		addRoom(3, 170, 16, 136, "Ruurlo");
@@ -83,7 +84,7 @@ public class Model{
 	 * @return ArrayList of Room instances that meet the qualifications.
 	 */
 	public ArrayList<Room> getRooms(int monthlyPrice,int distanceFromCurrentLocation,int surface){
-		
+
 		ArrayList<Room> foundRooms = new ArrayList<Room>();
 		
 		for(Room r: rooms){
@@ -94,7 +95,7 @@ public class Model{
 			}
 		}
 		
-		return rooms;
+		return foundRooms;
 	}
 	
 	public User getUser(String name){
