@@ -19,6 +19,11 @@ import nl.pietervanberkel.model.User;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	private static final String TESTNAME = "pieter";
+	private static final String TESTPASSWORD = "test";
+	private static final int VERHUURDER = 0, HUURDER = 1;
+	private static final int ROLE = HUURDER;
+    
     
     /**
      * @see HttpServlet#HttpServlet()
