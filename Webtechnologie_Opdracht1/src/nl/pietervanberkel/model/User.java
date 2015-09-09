@@ -5,18 +5,13 @@ public class User {
 	private String password;
 	private int rol;
 	
-	public static final int HUURDER = 0, VERHUURDER = 1;
+	public static final int HUURDER = 0, VERHUURDER = 1, ADMIN = 2;
 	
-	public User(String naam, String password, int rol){
-		this.naam = naam;
+	public User(String password, int rol){
 		this.password = password;
 		this.rol = rol;
 	}
 	
-	
-	public String getNaam(){
-		return naam;
-	}
 	
 	public String getPassword(){
 		return password;

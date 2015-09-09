@@ -5,11 +5,17 @@
 		<title>Webtech pieter thimo</title>
 	</head>
 	<body>
-		<form action="SearchRoom" method="post">
+		<form action="Register" method="post">
 			<p>Enter your name</p>
 			<input type="text" name="Login_Name">
 			<p>Enter your password</p>
 			<input type="password" name="Password">
+			<br>
+			<input type = "radio" name = "Rol" id = "huurder" value = "huurder" checked="checked" />
+			<label for = "huurder">huurder</label>
+			
+			<input type = "radio" name = "Rol" id = "verhuurder" value = "verhuurder" />
+			<label for = "verhuurder">verhuurder</label>
 			<br>
 			<button type="submit">Register</button>
 		</form>

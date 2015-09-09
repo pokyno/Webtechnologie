@@ -18,13 +18,7 @@ import nl.pietervanberkel.model.User;
 @WebServlet(description = "controls the login proces", urlPatterns = { "/Login" })
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-	private static final String TESTNAME = "pieter";
-	private static final String TESTPASSWORD = "test";
-	private static final int VERHUURDER = 0, HUURDER = 1;
-	private static final int ROLE = HUURDER;
-    
-    
+   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -65,12 +59,20 @@ public class Login extends HttpServlet {
 		User user = model.getUser(name);
 		if(user != null){
 			if(user.getPassword().equals(password)){
+				// bij de sessie moet nog aan worden gegeven wie geauthorizeerd is
 				HttpSession session = request.getSession();
 				if(!session.isNew()){
 					session.invalidate();
 					session = request.getSession();
 				}
-				request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
+				
+				if(user.getRol() == User.ADMIN){
+					
+				}else if(user.getRol() == User.HUURDER){
+					request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
+				}else if(user.getRol() == User.VERHUURDER){
+					
+				}
 			}
 		}else{
 			request.getServletContext().getRequestDispatcher("/WEB-INF/fouteInlog.html").forward(request,response);

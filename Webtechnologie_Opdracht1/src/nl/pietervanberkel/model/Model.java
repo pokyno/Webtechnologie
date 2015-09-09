@@ -28,13 +28,13 @@ public class Model{
 
 	public void fill_with_dummie_data() {
 
-		users.put("pieter", new User("pieter", "test", User.HUURDER));
-		users.put("karin", new User("karin", "test", User.VERHUURDER));
-		users.put("thimo", new User("thimo", "test", User.HUURDER));
-		users.put("quinten", new User("quinten", "test", User.HUURDER));
-		users.put("anne", new User("anne", "test", User.VERHUURDER));
-		users.put("harold", new User("harold", "test", User.HUURDER));
-		users.put("henk", new User("henk", "test", User.HUURDER));
+		users.put("pieter", new User("test", User.HUURDER));
+		users.put("karin", new User("test", User.VERHUURDER));
+		users.put("thimo", new User("test", User.HUURDER));
+		users.put("quinten", new User("test", User.HUURDER));
+		users.put("anne", new User("test", User.VERHUURDER));
+		users.put("harold", new User("test", User.HUURDER));
+		users.put("henk", new User("test", User.ADMIN));
 
 		// rooms dummie data
 		
@@ -47,16 +47,14 @@ public class Model{
 
 	}
 
-	public void addUser(String username, String naam, String password, int rol) {
+	public void addUser(String username, String password, int rol) {
 		assert username != null : "null type username";
-		assert naam != null : "null type naam";
 		assert password != null : "null type password";
 
 		assert!username.isEmpty() : "empty string username";
-		assert!naam.isEmpty() : "empty string naam";
 		assert!password.isEmpty() : "empty string password";
 
-		users.put(username, new User(naam, password, rol));
+		users.put(username, new User(password, rol));
 	}
 	
 	/**
