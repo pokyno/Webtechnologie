@@ -66,6 +66,8 @@ public class Login extends HttpServlet {
 					session = request.getSession();
 				}
 				
+				session.setAttribute("name", name);
+				
 				if(user.getRol() == User.ADMIN){
 					response.sendRedirect("/Webtechnologie_Opdracht1/ShowPersonServlet");
 				}else if(user.getRol() == User.HUURDER){
