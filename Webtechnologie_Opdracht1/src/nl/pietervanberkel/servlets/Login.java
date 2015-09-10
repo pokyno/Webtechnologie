@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
 		User user = model.getUser(name);
 		if(user != null){
 			if(user.getPassword().equals(password)){
-				// bij de sessie moet nog aan worden gegeven wie geauthorizeerd is
+			
 				HttpSession session = request.getSession();
 				if(!session.isNew()){
 					session.invalidate();
@@ -67,7 +67,7 @@ public class Login extends HttpServlet {
 				}
 				
 				if(user.getRol() == User.ADMIN){
-					
+					response.sendRedirect("/Webtechnologie_Opdracht1/ShowPersonServlet");
 				}else if(user.getRol() == User.HUURDER){
 					request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
 				}else if(user.getRol() == User.VERHUURDER){

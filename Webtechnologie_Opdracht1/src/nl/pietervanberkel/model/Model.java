@@ -101,5 +101,25 @@ public class Model{
 	public User getUser(String name){
 		return users.get(name);
 	}
+	
+	public ArrayList<User> getLandlords(){
+		ArrayList<User> landLords = new ArrayList<User>();
+		for (User u : users.values()){
+			if (u.getRol() == User.VERHUURDER){
+				landLords.add(u);
+			}
+		}
+		return landLords;
+	}
+	
+	public ArrayList<User> getRenters(){
+		ArrayList<User> renters = new ArrayList<User>();
+		for (User u : users.values()){
+			if (u.getRol() == User.HUURDER){
+				renters.add(u);
+			}
+		}
+		return renters;
+	}
 
 }

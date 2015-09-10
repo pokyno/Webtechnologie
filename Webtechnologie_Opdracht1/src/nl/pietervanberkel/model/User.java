@@ -25,4 +25,8 @@ public class User {
 		return naam + " " + password + " " + rol;
 	}
 	
+	public String getName(){
+		return naam;
+	}
+	
 }
