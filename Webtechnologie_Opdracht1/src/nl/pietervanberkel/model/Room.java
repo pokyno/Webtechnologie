@@ -2,9 +2,9 @@ package nl.pietervanberkel.model;
 
 public class Room {
 	private int roomNumber, monthlyPrice, distanceFromCurrentLocation,surface;
-	private String city;
+	private String city, owner;
 
-	public Room(int roomNumber, int monthlyPrice, int distanceFromCurrentLocation,int surface,String city) {
+	public Room(int roomNumber, int monthlyPrice, int distanceFromCurrentLocation,int surface,String city, String owner) {
 		this.roomNumber = roomNumber;
 		this.monthlyPrice = monthlyPrice;
 		this.distanceFromCurrentLocation = distanceFromCurrentLocation;
@@ -32,11 +32,16 @@ public class Room {
 		return surface;
 	}
 	
+	public String getOwner(){
+		return owner;
+	}
+	
 	public String toString(){
 		return    "room nr: " + roomNumber + "\n"
 				+ "monthly prize: " + monthlyPrice + "\n"
 				+ "distance: " +distanceFromCurrentLocation+"\n"
 				+ "surface:"+ surface + "\n"
-				+ "city: " + city;
+				+ "city: " + city +"\n"
+				+ "owner: "+ owner;
 	}
 }

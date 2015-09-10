@@ -39,12 +39,12 @@ public class Model{
 
 		// rooms dummie data
 		
-		addRoom(0, 70, 16, 120,"Enschede");
-		addRoom(5, 65, 5, 130,"borkulo");
-		addRoom(1, 120, 16, 8, "Hengelo");
-		addRoom(2, 30, 16, 67, "Borculo");
-		addRoom(3, 170, 16, 136, "Ruurlo");
-		addRoom(4, 245, 16, 1, "Geesteren");
+		addRoom(0, 70, 16, 120,"Enschede","karin");
+		addRoom(5, 65, 5, 130,"haarlem","thimo");
+		addRoom(1, 120, 16, 8, "Hengelo","pieter");
+		addRoom(2, 30, 16, 67, "Borculo","quinten");
+		addRoom(3, 170, 16, 136, "Ruurlo","henk");
+		addRoom(4, 245, 16, 1, "Geesteren","harold");
 		
 
 	}
@@ -67,14 +67,18 @@ public class Model{
 	 * @param surface Integer size of the room in square meters.
 	 * @param city String name of the city the room is located in.
 	 */
-	public void addRoom(int roomNumber, int monthlyPrice, int distanceFromCurrentLocation,int surface, String city){
+	public void addRoom(int roomNumber, int monthlyPrice, int distanceFromCurrentLocation,int surface, String city, String owner){
 		assert roomNumber >= 0 : "roomNumber " + roomNumber + " is not a valid room number.";
 		assert monthlyPrice > 0 : "monthly price " + monthlyPrice + " should be more than 0 euro's";
 		assert distanceFromCurrentLocation >= 0 : "distanceFromCurrentLocation " + distanceFromCurrentLocation + " is not a valid distance.";
 		assert surface > 0 : "surface " + surface + " is not a valid surface size.";
 		
+		if(users.containsKey("owner")){
+			rooms.add(new Room(roomNumber,monthlyPrice,distanceFromCurrentLocation,surface,city,owner));
+		}else{
+			throw new NullPointerException("user doesnt exist");
+		}
 		
-		rooms.add(new Room(roomNumber,monthlyPrice,distanceFromCurrentLocation,surface,city));
 	}
 	
 	/**
@@ -126,6 +130,16 @@ public class Model{
 			}
 		}
 		return renters;
+	}
+	
+	public ArrayList<Room> getRoomsByUser(String name){
+		ArrayList<Room> rooms = new ArrayList<Room>();
+		for(Room room: this.rooms){
+			if(room.getOwner().equals("name")){
+				rooms.add(room);
+			}
+		}
+		return rooms;
 	}
 
 }

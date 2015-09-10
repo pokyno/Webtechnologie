@@ -9,21 +9,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import nl.pietervanberkel.model.Model;
 import nl.pietervanberkel.model.Room;
+import nl.pietervanberkel.model.User;
 
 /**
- * Servlet implementation class Huurder
+ * Servlet implementation class ShowRoomsServlet
  */
-@WebServlet("/Huurder")
-public class Huurder extends HttpServlet {
+@WebServlet("/ShowRoomsServlet")
+public class ShowRoomsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Huurder() {
+    public ShowRoomsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,35 +34,38 @@ public class Huurder extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			response.sendRedirect("/Webtechnologie_Opdracht1/login.html");
+		}
+		String name = (String) session.getAttribute("name");
+		
 		Model model = (Model) request.getServletContext().getAttribute("Model");
 		
-		int monthlyPrice =  Integer.parseInt(request.getParameter("monthlyPrice"));
-		int distanceFromCurrentLocation = Integer.parseInt(request.getParameter("distance"));
-		int surface = Integer.parseInt(request.getParameter("surfaceArea"));
+		ArrayList<Room> rooms = model.getRoomsByUser(name);
 		
-		ArrayList<Room> rooms = model.getRooms(monthlyPrice, distanceFromCurrentLocation, surface);
-		PrintWriter  writer = response.getWriter();
+		PrintWriter writer = response.getWriter();
 		
-		String roomlist = "";
-		
-		for(Room room : rooms){
-			roomlist += " <li>"+room+"</li> ";
+		String roomsList = "";
+		for (Room room : rooms) {
+			roomsList += " <li>" + room + "</li> ";
 		}
-		
-		String html = "<!DOCTYPE html>"
-				+ "<html>"
+
+		String html = "<!DOCTYPE html>" + "<html>"
 				+ " <head> <meta charset='ISO-8859-1'> <title>Webtech pieter thimo</title> </head>"
-				+ " <body> <ul>"+roomlist+"</ul> </body> "
-				+ "</html>";
-		
+				+ " <body> <p> landLords </p> <ul>" + roomsList + "</ul> </body> " + "</html>";
+
 		writer.println(html);
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

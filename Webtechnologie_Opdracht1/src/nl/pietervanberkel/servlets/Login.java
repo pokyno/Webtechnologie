@@ -73,6 +73,8 @@ public class Login extends HttpServlet {
 						cookie.setValue(null);
 					}
 				}
+
+				session.setAttribute("name", name);
 				
 				if(user.getRol() == User.ADMIN){
 					response.sendRedirect("/Webtechnologie_Opdracht1/ShowPersonServlet");
