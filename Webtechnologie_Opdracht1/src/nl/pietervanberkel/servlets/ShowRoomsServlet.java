@@ -54,7 +54,7 @@ public class ShowRoomsServlet extends HttpServlet {
 
 		String html = "<!DOCTYPE html>" + "<html>"
 				+ " <head> <meta charset='ISO-8859-1'> <title>Webtech pieter thimo</title> </head>"
-				+ " <body> <p> landLords </p> <ul>" + roomsList + "</ul> </body> " + "</html>";
+				+ " <body> <p> landLords </p> <ul>" + roomsList + "</ul><a href='/Webtechnologie_Opdracht1/addRoom.html'>add a room</a> </body> " + "</html>";
 
 		writer.println(html);
 		

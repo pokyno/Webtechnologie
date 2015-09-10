@@ -130,16 +130,13 @@ public class Model{
 	
 	public ArrayList<Room> getRoomsByUser(String name){
 		ArrayList<Room> roomlist = new ArrayList<Room>();
-		
-		System.out.println(name);
-		System.out.println(rooms);
+
 		for(Room room: this.rooms){
 			if(room.getOwner().equals(name)){
 				roomlist.add(room);
 			}
 		}
 		
-		System.out.println(roomlist);
 		return roomlist;
 	}
 

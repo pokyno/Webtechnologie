@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import nl.pietervanberkel.model.Model;
 import nl.pietervanberkel.model.User;
+import nl.pietervanberkel.util.UserCookie;
 
 /**
  * Servlet implementation class Login
@@ -82,6 +84,14 @@ public class Login extends HttpServlet {
 					session.invalidate();
 					session = request.getSession();
 				}
+				
+				for (Cookie cookie : request.getCookies()){
+					if (cookie.getName().equals(user.getName())){
+						cookie.setValue(null);
+					}
+				}
+
+
 				session.setAttribute("name", name);
 				
 				if(user.getRol() == User.ADMIN){

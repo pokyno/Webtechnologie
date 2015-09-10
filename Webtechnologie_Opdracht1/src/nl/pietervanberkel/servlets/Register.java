@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.pietervanberkel.model.Model;
 import nl.pietervanberkel.model.User;
+import nl.pietervanberkel.util.UserCookie;
 
 /**
  * Servlet implementation class Register
@@ -51,7 +52,12 @@ public class Register extends HttpServlet {
 		}
 		
 		model.addUser(name, password, rol);
+		
+		UserCookie cookie = new UserCookie(name,null);
+		
 		System.out.println("account aangemaakt");
+		
+		response.addCookie(cookie);
 		response.sendRedirect("/Webtechnologie_Opdracht1/login.html");
 		
 	}
