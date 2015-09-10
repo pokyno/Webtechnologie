@@ -1,15 +1,16 @@
 package nl.pietervanberkel.model;
 
 public class User {
-	private String naam; //let op normale naam niet gebruikersnaam
+	private String name; //let op normale naam niet gebruikersnaam
 	private String password;
 	private int rol;
 	
 	public static final int HUURDER = 0, VERHUURDER = 1, ADMIN = 2;
 	
-	public User(String password, int rol){
+	public User(String password, int rol,String name){
 		this.password = password;
 		this.rol = rol;
+		this.name = name;
 	}
 	
 	
@@ -22,11 +23,11 @@ public class User {
 	}
 	
 	public String toString(){
-		return naam + " " + password + " " + rol;
+		return name + " " + password + " " + rol;
 	}
 	
 	public String getName(){
-		return naam;
+		return name;
 	}
 	
 }

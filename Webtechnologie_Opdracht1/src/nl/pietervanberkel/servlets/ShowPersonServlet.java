@@ -49,12 +49,12 @@ public class ShowPersonServlet extends HttpServlet {
 
 		String landLordList = "";
 		for (User u : landLords) {
-			landLordList += " <li>" + u.getName() + "</li> ";
+			landLordList += " <li>" + u + "</li> ";
 		}
 
 		String rentersList = "";
 		for (User u : renters) {
-			rentersList += " <li>" + u.getName() + "</li> ";
+			rentersList += " <li>" + u + "</li> ";
 		}
 
 		String html = "<!DOCTYPE html>" + "<html>"

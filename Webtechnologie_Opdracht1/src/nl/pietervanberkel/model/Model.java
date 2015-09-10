@@ -2,6 +2,7 @@ package nl.pietervanberkel.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -10,7 +11,7 @@ import com.sun.xml.internal.ws.developer.UsesJAXBContext;
 
 public class Model{
 
-	private HashMap<String, User> users = new HashMap<String, User>(); // gebruikers te selecteren met
+	private HashSet<User> users = new HashSet<User>(); // gebruikers te selecteren met
 												// hun gebruikers naam
 	private ArrayList<Room> rooms = new ArrayList<Room>(); // kan ook een treeset zijn als we er
 											// een compare voor maken
@@ -23,18 +24,18 @@ public class Model{
 	}
 	
 	public ArrayList<User> getUsers() {
-		return new ArrayList<User>(users.values());
+		return new ArrayList<User>(users);
 	}
 
 	public void fill_with_dummie_data() {
 
-		users.put("pieter", new User("test", User.HUURDER));
-		users.put("karin", new User("test", User.VERHUURDER));
-		users.put("thimo", new User("test", User.HUURDER));
-		users.put("quinten", new User("test", User.HUURDER));
-		users.put("anne", new User("test", User.VERHUURDER));
-		users.put("harold", new User("test", User.HUURDER));
-		users.put("henk", new User("test", User.ADMIN));
+		users.add(new User("test", User.HUURDER,"pieter"));
+		users.add(new User("test", User.VERHUURDER,"karin"));
+		users.add(new User("test", User.HUURDER,"thimo"));
+		users.add(new User("test", User.HUURDER,"quinten"));
+		users.add(new User("test", User.VERHUURDER,"anne"));
+		users.add(new User("test", User.HUURDER,"harold"));
+		users.add(new User("test", User.ADMIN,"henk"));
 
 		// rooms dummie data
 		
@@ -55,7 +56,7 @@ public class Model{
 		assert!username.isEmpty() : "empty string username";
 		assert!password.isEmpty() : "empty string password";
 
-		users.put(username, new User(password, rol));
+		users.add(new User(password, rol, username));
 	}
 	
 	/**
@@ -99,12 +100,17 @@ public class Model{
 	}
 	
 	public User getUser(String name){
-		return users.get(name);
+		for(User u: users){
+			if (u.getName().equals(name)){
+				return u;
+			}
+		}
+		return null;
 	}
 	
 	public ArrayList<User> getLandlords(){
 		ArrayList<User> landLords = new ArrayList<User>();
-		for (User u : users.values()){
+		for (User u : users){
 			if (u.getRol() == User.VERHUURDER){
 				landLords.add(u);
 			}
@@ -114,7 +120,7 @@ public class Model{
 	
 	public ArrayList<User> getRenters(){
 		ArrayList<User> renters = new ArrayList<User>();
-		for (User u : users.values()){
+		for (User u : users){
 			if (u.getRol() == User.HUURDER){
 				renters.add(u);
 			}
