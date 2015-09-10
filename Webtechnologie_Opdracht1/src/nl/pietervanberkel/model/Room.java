@@ -10,6 +10,7 @@ public class Room {
 		this.distanceFromCurrentLocation = distanceFromCurrentLocation;
 		this.surface = surface;
 		this.city = city;
+		this.owner = owner;
 	}
 	
 	public int getDistanceFromCurrentLocation() {

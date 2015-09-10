@@ -18,7 +18,7 @@ import nl.pietervanberkel.model.User;
 @WebServlet(description = "controls the login proces", urlPatterns = { "/Login" })
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+	private Model model;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -28,15 +28,32 @@ public class Login extends HttpServlet {
     }
 
     
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		model = (Model) config.getServletContext().getAttribute("Model");
+	}
+
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		
+		
 		HttpSession s = request.getSession(false);
 		if(s != null){
 			System.out.println("authorized");
-			request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
+			String name = (String) s.getAttribute("name");
+			if(model.getUser(name).getRol() == User.HUURDER){
+				request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
+			}else if(model.getUser(name).getRol() == User.VERHUURDER){
+				response.sendRedirect("/Webtechnologie_Opdracht1/ShowRoomsServlet");
+			}else if(model.getUser(name).getRol() == User.ADMIN){
+				response.sendRedirect("/Webtechnologie_Opdracht1/ShowPersonServlet");
+			}
+			
 		}else{
 			System.out.println("not authorized");
 			response.sendRedirect("/Webtechnologie_Opdracht1/login.html");
@@ -54,7 +71,7 @@ public class Login extends HttpServlet {
 		System.out.println(name);
 		System.out.println(password);
 		
-		Model model = (Model) request.getServletContext().getAttribute("Model");
+		//Model model = (Model) request.getServletContext().getAttribute("Model");
 		
 		User user = model.getUser(name);
 		if(user != null){
@@ -65,7 +82,6 @@ public class Login extends HttpServlet {
 					session.invalidate();
 					session = request.getSession();
 				}
-				
 				session.setAttribute("name", name);
 				
 				if(user.getRol() == User.ADMIN){
@@ -73,7 +89,7 @@ public class Login extends HttpServlet {
 				}else if(user.getRol() == User.HUURDER){
 					request.getServletContext().getRequestDispatcher("/WEB-INF/huurder.html").forward(request,response);
 				}else if(user.getRol() == User.VERHUURDER){
-					
+					response.sendRedirect("/Webtechnologie_Opdracht1/ShowRoomsServlet");
 				}
 			}
 		}else{

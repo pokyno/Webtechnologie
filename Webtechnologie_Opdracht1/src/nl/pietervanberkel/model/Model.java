@@ -40,11 +40,11 @@ public class Model{
 		// rooms dummie data
 		
 		addRoom(0, 70, 16, 120,"Enschede","karin");
-		addRoom(5, 65, 5, 130,"haarlem","thimo");
-		addRoom(1, 120, 16, 8, "Hengelo","pieter");
-		addRoom(2, 30, 16, 67, "Borculo","quinten");
-		addRoom(3, 170, 16, 136, "Ruurlo","henk");
-		addRoom(4, 245, 16, 1, "Geesteren","harold");
+		addRoom(5, 65, 5, 130,"haarlem","karin");
+		addRoom(1, 120, 16, 8, "Hengelo","anne");
+		addRoom(2, 30, 16, 67, "Borculo","anne");
+		addRoom(3, 170, 16, 136, "Ruurlo","karin");
+		addRoom(4, 245, 16, 1, "Geesteren","anne");
 		
 
 	}
@@ -73,11 +73,7 @@ public class Model{
 		assert distanceFromCurrentLocation >= 0 : "distanceFromCurrentLocation " + distanceFromCurrentLocation + " is not a valid distance.";
 		assert surface > 0 : "surface " + surface + " is not a valid surface size.";
 		
-		if(users.containsKey("owner")){
-			rooms.add(new Room(roomNumber,monthlyPrice,distanceFromCurrentLocation,surface,city,owner));
-		}else{
-			throw new NullPointerException("user doesnt exist");
-		}
+		rooms.add(new Room(roomNumber,monthlyPrice,distanceFromCurrentLocation,surface,city,owner));
 		
 	}
 	
@@ -133,13 +129,18 @@ public class Model{
 	}
 	
 	public ArrayList<Room> getRoomsByUser(String name){
-		ArrayList<Room> rooms = new ArrayList<Room>();
+		ArrayList<Room> roomlist = new ArrayList<Room>();
+		
+		System.out.println(name);
+		System.out.println(rooms);
 		for(Room room: this.rooms){
-			if(room.getOwner().equals("name")){
-				rooms.add(room);
+			if(room.getOwner().equals(name)){
+				roomlist.add(room);
 			}
 		}
-		return rooms;
+		
+		System.out.println(roomlist);
+		return roomlist;
 	}
 
 }
