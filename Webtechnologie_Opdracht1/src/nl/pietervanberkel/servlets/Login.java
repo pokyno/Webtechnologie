@@ -29,7 +29,7 @@ public class Login extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    
+    //wordt gebruikt om het model op te halen
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -41,8 +41,6 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		
 		HttpSession s = request.getSession(false);
 		if(s != null){
