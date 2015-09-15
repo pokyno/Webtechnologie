@@ -40,8 +40,6 @@ public class Login extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * wordt gebruikt om door te verwijzen naar de correcte pagina als de user al is ingelogd 
-	 * en als doorverwijzing naar de login.html als dit niet zo is
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
