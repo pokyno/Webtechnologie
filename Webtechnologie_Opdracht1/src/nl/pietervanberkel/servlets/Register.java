@@ -47,13 +47,14 @@ public class Register extends HttpServlet {
 		
 		if(selectedRol.equals("huurder")){
 			rol = User.HUURDER;
-		}else if(selectedRol.equals("verhuurder")){
+		} else if(selectedRol.equals("verhuurder")){
 			rol = User.VERHUURDER;
 		}
 		
 		model.addUser(name, password, rol);
 		
 		UserCookie cookie = new UserCookie(name,null);
+		cookie.setMaxAge(999999);
 		
 		System.out.println("account aangemaakt");
 		

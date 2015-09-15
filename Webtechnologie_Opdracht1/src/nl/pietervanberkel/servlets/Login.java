@@ -85,9 +85,22 @@ public class Login extends HttpServlet {
 					session = request.getSession();
 				}
 				
-				for (Cookie cookie : request.getCookies()){
-					if (cookie.getName().equals(user.getName())){
-						cookie.setValue(null);
+				Cookie[] cookies = request.getCookies();
+				
+				if (cookies != null){
+					if (containsCookie(cookies, name)){
+						for (Cookie cookie : cookies){
+							if (cookie.getName().equals(user.getName())){
+								cookie.setValue(null);
+							}
+						}
+						System.out.println("old cookie: " + request.getCookies().length);
+					} else {
+						UserCookie cookie = new UserCookie(user.getName(),null);
+						System.out.println("adding cookie with name: " + user.getName());
+						cookie.setMaxAge(99999);
+						response.addCookie(cookie);
+						System.out.println("new cookie: " + request.getCookies().length);
 					}
 				}
 
@@ -113,6 +126,15 @@ public class Login extends HttpServlet {
 		
 		
 		
+	}
+	
+	private boolean containsCookie(Cookie[] cookies,String name){
+		for (Cookie cookie : cookies){
+			if (cookie.getName().equals(name)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

@@ -6,7 +6,6 @@ public class UserCookie extends Cookie {
 	
 	public UserCookie(String name, String value) {
 		super(name, System.currentTimeMillis() + "");
-		
 	}
 	
 	/**
