@@ -30,8 +30,8 @@ public class AddRoom extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if(session == null){
-			response.sendRedirect("/Webtechnologie_Opdracht1/login.html");
+		if(session == null){ //used for unauthorized entry
+			response.sendRedirect("/Webtechnologie_Opdracht1/login.html"); 
 		}
 		
 		Model model = (Model)request.getServletContext().getAttribute("Model");
@@ -44,7 +44,9 @@ public class AddRoom extends HttpServlet {
 		String owner =(String) session.getAttribute("name");
 		
 		model.addRoom(id, price, distance, surface, city, owner);
+		
 		System.out.println("room added");
+		
 		response.sendRedirect("/Webtechnologie_Opdracht1/ShowRoomsServlet");
 	}
 

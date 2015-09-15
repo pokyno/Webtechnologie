@@ -19,9 +19,11 @@ import nl.pietervanberkel.util.UserCookie;
  */
 @WebServlet(description = "controls the login proces", urlPatterns = { "/Login" })
 public class Login extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	private Model model;
-    /**
+   
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public Login() {
@@ -29,7 +31,6 @@ public class Login extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    //wordt gebruikt om het model op te halen
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -39,10 +40,13 @@ public class Login extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * wordt gebruikt om door te verwijzen naar de correcte pagina als de user al is ingelogd 
+	 * en als doorverwijzing naar de login.html als dit niet zo is
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession s = request.getSession(false);
+		
 		if(s != null){
 			System.out.println("authorized");
 			String name = (String) s.getAttribute("name");
@@ -53,7 +57,6 @@ public class Login extends HttpServlet {
 			}else if(model.getUser(name).getRol() == User.ADMIN){
 				response.sendRedirect("/Webtechnologie_Opdracht1/ShowPersonServlet");
 			}
-			
 		}else{
 			System.out.println("not authorized");
 			response.sendRedirect("/Webtechnologie_Opdracht1/login.html");

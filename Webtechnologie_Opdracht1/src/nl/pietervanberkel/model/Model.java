@@ -1,25 +1,21 @@
 package nl.pietervanberkel.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import com.sun.xml.internal.ws.developer.UsesJAXBContext;
 
 public class Model{
 
 	private HashSet<User> users = new HashSet<User>(); // gebruikers te selecteren met
 												// hun gebruikers naam
 	private ArrayList<Room> rooms = new ArrayList<Room>(); // kan ook een treeset zijn als we er
-											// een compare voor maken
+											// een compare voor zouden maken 
 
 	public Model() {
-		// TODO Auto-generated method stub
-		// hier kan alles bij het opstarten hard coded data in voegen kan later
-		// ook veranderd worden met database ini
+		
+		// admin toevoegen want die moet vast staan
+		users.add(new User("test", User.ADMIN,"henk"));
+		
 		fill_with_dummie_data();
 	}
 	
@@ -35,8 +31,7 @@ public class Model{
 		users.add(new User("test", User.HUURDER,"quinten"));
 		users.add(new User("test", User.VERHUURDER,"anne"));
 		users.add(new User("test", User.HUURDER,"harold"));
-		users.add(new User("test", User.ADMIN,"henk"));
-
+		
 		// rooms dummie data
 		
 		addRoom(0, 70, 16, 120,"Enschede","karin");
@@ -48,12 +43,16 @@ public class Model{
 		
 
 	}
-
+	/**
+	 * Add a new User to the system
+	 * @param username String the name of the user
+	 * @param password	String the password of the user	
+	 * @param rol int de rol die de user heeft
+	 */
 	public void addUser(String username, String password, int rol) {
 		assert username != null : "null type username";
 		assert password != null : "null type password";
 
-		assert!username.isEmpty() : "empty string username";
 		assert!password.isEmpty() : "empty string password";
 
 		users.add(new User(password, rol, username));
@@ -85,9 +84,7 @@ public class Model{
 	 * @return ArrayList of Room instances that meet the qualifications.
 	 */
 	public ArrayList<Room> getRooms(int monthlyPrice,int distanceFromCurrentLocation,int surface){
-
 		ArrayList<Room> foundRooms = new ArrayList<Room>();
-		
 		for(Room r: rooms){
 			if (r.getMonthlyPrice() <= monthlyPrice &&
 					r.getDistanceFromCurrentLocation() <= distanceFromCurrentLocation &&
@@ -95,10 +92,13 @@ public class Model{
 				foundRooms.add(r);
 			}
 		}
-		
 		return foundRooms;
 	}
-	
+	/**
+	 * gets a user by using a name
+	 * @param name String the name of the User to find
+	 * @return the User
+	 */
 	public User getUser(String name){
 		for(User u: users){
 			if (u.getName().equals(name)){
@@ -108,6 +108,10 @@ public class Model{
 		return null;
 	}
 	
+	/**
+	 * Gives a list with all the landlords
+	 * @return the landlords
+	 */
 	public ArrayList<User> getLandlords(){
 		ArrayList<User> landLords = new ArrayList<User>();
 		for (User u : users){
@@ -118,6 +122,10 @@ public class Model{
 		return landLords;
 	}
 	
+	/**
+	 * Gives a list with all the renters
+	 * @return the renters
+	 */
 	public ArrayList<User> getRenters(){
 		ArrayList<User> renters = new ArrayList<User>();
 		for (User u : users){
@@ -128,15 +136,18 @@ public class Model{
 		return renters;
 	}
 	
+	/**
+	 * Gives all the rooms that correspond with the users name
+	 * @param name the name of the user
+	 * @return	list of the rooms that correspond with the users name 
+	 */
 	public ArrayList<Room> getRoomsByUser(String name){
 		ArrayList<Room> roomlist = new ArrayList<Room>();
-
 		for(Room room: this.rooms){
 			if(room.getOwner().equals(name)){
 				roomlist.add(room);
 			}
 		}
-		
 		return roomlist;
 	}
 

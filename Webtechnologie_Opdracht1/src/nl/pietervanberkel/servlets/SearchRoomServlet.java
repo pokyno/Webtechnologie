@@ -16,7 +16,7 @@ import nl.pietervanberkel.model.Room;
 /**
  * Servlet implementation class Huurder
  */
-@WebServlet("/Huurder")
+@WebServlet("/SearchRoomServlet")
 public class SearchRoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,26 +33,32 @@ public class SearchRoomServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Model model = (Model) request.getServletContext().getAttribute("Model");
-		
-		int monthlyPrice =  Integer.parseInt(request.getParameter("monthlyPrice"));
-		int distanceFromCurrentLocation = Integer.parseInt(request.getParameter("distance"));
-		int surface = Integer.parseInt(request.getParameter("surfaceArea"));
-		
-		ArrayList<Room> rooms = model.getRooms(monthlyPrice, distanceFromCurrentLocation, surface);
-		PrintWriter  writer = response.getWriter();
-		
-		String roomlist = "";
-		
-		for(Room room : rooms){
-			roomlist += " <li>"+room+"</li> ";
+		try{
+			int monthlyPrice =  Integer.parseInt(request.getParameter("monthlyPrice"));
+			int distanceFromCurrentLocation = Integer.parseInt(request.getParameter("distance"));
+			int surface = Integer.parseInt(request.getParameter("surfaceArea"));
+			
+			ArrayList<Room> rooms = model.getRooms(monthlyPrice, distanceFromCurrentLocation, surface);
+			PrintWriter  writer = response.getWriter();
+			
+			String roomlist = "";
+			
+			for(Room room : rooms){
+				roomlist += " <li>"+room+"</li> ";
+			}
+			
+			String html = "<!DOCTYPE html>"
+					+ "<html>"
+					+ " <head> <meta charset='ISO-8859-1'> <title>Webtech pieter thimo</title> </head>"
+					+ " <body> <ul>"+roomlist+"</ul> </body> "
+					+ "</html>";
+			
+			writer.println(html);
+			
+		}catch(Exception e){
+			response.sendRedirect("/Webtechnologie_Opdracht1/Login");
 		}
 		
-		String html = "<!DOCTYPE html>"
-				+ "<html>"
-				+ " <head> <meta charset='ISO-8859-1'> <title>Webtech pieter thimo</title> </head>"
-				+ " <body> <ul>"+roomlist+"</ul> </body> "
-				+ "</html>";
 		
-		writer.println(html);
 	}
 }
