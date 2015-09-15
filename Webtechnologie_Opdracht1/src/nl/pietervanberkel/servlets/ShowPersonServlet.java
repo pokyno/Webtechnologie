@@ -99,13 +99,4 @@ public class ShowPersonServlet extends HttpServlet {
 		writer.println(html);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-	}
-
 }

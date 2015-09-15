@@ -1,4 +1,4 @@
-package nl.pietervanberkel.util;
+ package nl.pietervanberkel.util;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -20,7 +20,6 @@ public class ServletListener implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		sce.getServletContext().setAttribute("Model", new Model());
-		
 	}
 
 }
