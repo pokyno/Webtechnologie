@@ -28,13 +28,12 @@ public class Login extends HttpServlet {
      */
     public Login() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		model = (Model) config.getServletContext().getAttribute("Model");
+		model = (Model) config.getServletContext().getAttribute("Model"); // hoeven we hier maar een keer het model op te halen
 	}
 
 
@@ -72,9 +71,8 @@ public class Login extends HttpServlet {
 		System.out.println(name);
 		System.out.println(password);
 		
-		//Model model = (Model) request.getServletContext().getAttribute("Model");
-		
 		User user = model.getUser(name);
+		
 		if(user != null){
 			if(user.getPassword().equals(password)){
 			
@@ -113,6 +111,8 @@ public class Login extends HttpServlet {
 				}else if(user.getRol() == User.VERHUURDER){
 					response.sendRedirect("/Webtechnologie_Opdracht1/ShowRoomsServlet");
 				}
+			}else{
+				request.getServletContext().getRequestDispatcher("/WEB-INF/fouteInlog.html").forward(request,response);
 			}
 		}else{
 			request.getServletContext().getRequestDispatcher("/WEB-INF/fouteInlog.html").forward(request,response);

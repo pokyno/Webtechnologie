@@ -25,7 +25,6 @@ public class SearchRoomServlet extends HttpServlet {
      */
     public SearchRoomServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -39,24 +38,30 @@ public class SearchRoomServlet extends HttpServlet {
 			int surface = Integer.parseInt(request.getParameter("surfaceArea"));
 			
 			ArrayList<Room> rooms = model.getRooms(monthlyPrice, distanceFromCurrentLocation, surface);
+			
 			PrintWriter  writer = response.getWriter();
-			
+	
 			String roomlist = "";
-			
-			for(Room room : rooms){
-				roomlist += " <li>"+room+"</li> ";
+			if(!rooms.isEmpty()){
+				for(Room room : rooms){
+					roomlist += " <li>"+room+"</li> ";
+				}
+			}else{
+				roomlist += "<li> no rooms found</li>";
 			}
+			
 			
 			String html = "<!DOCTYPE html>"
 					+ "<html>"
 					+ " <head> <meta charset='ISO-8859-1'> <title>Webtech pieter thimo</title> </head>"
-					+ " <body> <ul>"+roomlist+"</ul> </body> "
+					+ " <body> <ul>"+roomlist+"</ul> <br><a href=\"/Webtechnologie_Opdracht1\">go back</a><br>"
+					+ "<a href=\"/Webtechnologie_Opdracht1/LogoutServlet\">Logout</a> </body> "
 					+ "</html>";
 			
 			writer.println(html);
 			
 		}catch(Exception e){
-			response.sendRedirect("/Webtechnologie_Opdracht1/Login");
+			response.sendRedirect("/Webtechnologie_Opdracht1");
 		}
 		
 		

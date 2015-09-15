@@ -27,7 +27,6 @@ public class ShowRoomsServlet extends HttpServlet {
      */
     public ShowRoomsServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,9 +35,11 @@ public class ShowRoomsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
+		
 		if(session == null){
 			response.sendRedirect("/Webtechnologie_Opdracht1/login.html");
 		}
+		
 		String name = (String) session.getAttribute("name");
 		
 		Model model = (Model) request.getServletContext().getAttribute("Model");
@@ -54,7 +55,8 @@ public class ShowRoomsServlet extends HttpServlet {
 
 		String html = "<!DOCTYPE html>" + "<html>"
 				+ " <head> <meta charset='ISO-8859-1'> <title>Webtech pieter thimo</title> </head>"
-				+ " <body> <p> landLords </p> <ul>" + roomsList + "</ul><a href='/Webtechnologie_Opdracht1/addRoom.html'>add a room</a> </body> " + "</html>";
+				+ " <body> <p> landLords </p> <ul>" + roomsList + "</ul><a href='/Webtechnologie_Opdracht1/addRoom.html'>add a room</a><br>"
+				+ "<a href='/Webtechnologie_Opdracht1/LogoutServlet'> Logout</a> </body> " + "</html>";
 
 		writer.println(html);
 		

@@ -30,7 +30,6 @@ public class ShowPersonServlet extends HttpServlet {
 	 */
 	public ShowPersonServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -58,11 +57,10 @@ public class ShowPersonServlet extends HttpServlet {
 		String rentersList = "";
 		Cookie[] cookies = request.getCookies();
 		
-		//TEMP
 		for(Cookie c : cookies){
 			System.out.println(c.getName() + " ::: " + c.getValue());
 		}
-		//TEMP
+		
 		
 		for (User u : renters) {
 			String[] dates = new String[0];

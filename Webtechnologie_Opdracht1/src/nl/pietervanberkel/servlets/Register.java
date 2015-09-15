@@ -23,7 +23,6 @@ public class Register extends HttpServlet {
      */
     public Register() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,24 +34,34 @@ public class Register extends HttpServlet {
 		String password = request.getParameter("Password");
 		String name = request.getParameter("Login_Name");
 		String selectedRol = request.getParameter("Rol");
-	
-		int rol = 0;
 		
-		if(selectedRol.equals("huurder")){
-			rol = User.HUURDER;
-		} else if(selectedRol.equals("verhuurder")){
-			rol = User.VERHUURDER;
+		if(name.isEmpty() || password.isEmpty()){
+			System.out.println("pass of name may not be empty");
+			response.sendRedirect("/Webtechnologie_Opdracht1/register.html");
+		}else if(model.getUser(name) != null){
+			System.out.println("name may not excist already");
+			response.sendRedirect("/Webtechnologie_Opdracht1/register.html");
+		}else{
+			int rol = 0;
+			
+			if(selectedRol.equals("huurder")){
+				rol = User.HUURDER;
+			} else if(selectedRol.equals("verhuurder")){
+				rol = User.VERHUURDER;
+			}
+			
+			model.addUser(name, password, rol);
+			
+			UserCookie cookie = new UserCookie(name,null);
+			cookie.setMaxAge(999999);
+			
+			System.out.println("account aangemaakt");
+			
+			response.addCookie(cookie);
+			response.sendRedirect("/Webtechnologie_Opdracht1/login.html");
 		}
+	
 		
-		model.addUser(name, password, rol);
-		
-		UserCookie cookie = new UserCookie(name,null);
-		cookie.setMaxAge(999999);
-		
-		System.out.println("account aangemaakt");
-		
-		response.addCookie(cookie);
-		response.sendRedirect("/Webtechnologie_Opdracht1/login.html");
 		
 	}
 
